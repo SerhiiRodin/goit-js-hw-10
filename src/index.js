@@ -26,7 +26,7 @@ function onInputChenge(event) {
 function showMarkup(data) {
   // console.log(data.length); // проверяем длину приходящего массива
   if (data.length > 10) {
-    Notiflix.Notify.success(
+    Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
     return;

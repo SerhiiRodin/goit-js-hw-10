@@ -45,7 +45,7 @@ function error() {
 
 function cardMarkup(data) {
   // деструкторизация data.flags => flags
-  // глубокая деструкторизация name.official => name: { official }
+  // глубокая деструкторизация name.official => name: { official }.
   return data
     .map(({ flags, name: { official }, capital, population, languages }) => {
       return `<div class="wraper">

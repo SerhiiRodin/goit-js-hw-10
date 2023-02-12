@@ -12,9 +12,51 @@ body {
   line-height: 1.5;
 }
 
+.container {
+  width: 1400px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
 #search-box {
   font: inherit;
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.country-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.country-list-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+img {
+  width: 80px;
+  height: 60px;
+}
+
+.country-info_titel {
+  font-size: 38px;
+  font-weight: 700;
+}
+.country-card__info-title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.cantry-card p {
+  font-size: 30px;
 }

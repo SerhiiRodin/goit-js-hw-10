@@ -8,15 +8,6 @@ const inputEl = document.getElementById('search-box');
 const countryListEl = document.querySelector('.country-list');
 const countryInfoEl = document.querySelector('.country-info');
 
-console.log(
-  Notiflix.Notify.failure('Oops, there is no country with that name')
-);
-console.log(
-  Notiflix.Notify.success(
-    'Too many matches found. Please enter a more specific name.'
-  )
-);
-
 inputEl.addEventListener('input', _.debounce(onInputChenge, DEBOUNCE_DELAY));
 
 function onInputChenge(event) {
@@ -26,37 +17,40 @@ function onInputChenge(event) {
   if (!event.target.value.trim()) {
     return;
   }
-
+  // Текст импута
   const inputText = event.target.value.trim();
-  console.dir(inputText);
 
-  fetchCountries(inputText)
-    .then(data => {
-      console.log(data.length);
-      if (data.length > 10) {
-        Notiflix.Notify.success(
-          'Too many matches found. Please enter a more specific name.'
-        );
-        return;
-      }
-      if (data.length > 1) {
-        countryListEl.innerHTML = listMarkup(data);
-      }
-      if (data.length === 1) {
-        countryInfoEl.innerHTML = cardMarkup(data);
-      }
-    })
-    .catch(error => {
-      Notiflix.Notify.failure('Oops, there is no country with that name');
-    });
+  fetchCountries(inputText).then(showMarkup).catch(error);
+}
+
+function showMarkup(data) {
+  // console.log(data.length); // проверяем длину приходящего массива
+  if (data.length > 10) {
+    Notiflix.Notify.success(
+      'Too many matches found. Please enter a more specific name.'
+    );
+    return;
+  }
+  if (data.length > 1) {
+    countryListEl.innerHTML = listMarkup(data);
+  }
+  if (data.length === 1) {
+    countryInfoEl.innerHTML = cardMarkup(data);
+  }
+}
+
+function error() {
+  Notiflix.Notify.failure('Oops, there is no country with that name');
 }
 
 function cardMarkup(data) {
+  // деструкторизация data.flags => flags
+  // глубокая деструкторизация name.official => name: { official }
   return data
-    .map(({ flags, name, capital, population, languages }) => {
+    .map(({ flags, name: { official }, capital, population, languages }) => {
       return `<div class="wraper">
-      <img src="${flags.svg}" alt="${name.official}" />
-      <h2 class="country-info_titel">${name.official}</h2>
+      <img src="${flags.svg}" alt="${official}" />
+      <h2 class="country-info_titel">${official}</h2>
     </div>
     <div class="cantry-card">
       <p><span class="country-card__info-title">Capital: </span>${capital}</p>
